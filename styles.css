@@ -22,12 +22,12 @@ body{
     justify-content: center;
     margin-top: 15%;
 }
-#item {
+.item-container {
     background-color: aquamarine;
     border: 5px solid darkblue;
     cursor: pointer;
 }
-#item:hover {
+.item-container:hover {
     background-color: rgba(255, 0, 0, 0.64);
 }
 #boton-reinicio{
