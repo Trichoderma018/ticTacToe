@@ -28,5 +28,18 @@ body{
     cursor: pointer;
 }
 #item:hover {
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.64);
+}
+#boton-reinicio{
+    display: flex;
+    position: relative;
+    justify-content: right;
+    margin-top: 5%;
+    margin-right: 17%;
+}
+#reinicio{
+    background-color: rgba(64, 255, 0, 0.829);
+    height: 40px;
+    font-family:fantasy;
+    font-size: 18px;
 }
