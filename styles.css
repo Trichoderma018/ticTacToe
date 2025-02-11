@@ -1,0 +1,15 @@
+#container {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    justify-content: center;
+    margin-top: 15%;
+}
+#item {
+    background-color: aquamarine;
+    border: 5px solid;
+}
+#item:hover {
+    background-color: red;
+}
