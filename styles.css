@@ -1,3 +1,19 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+#marcadores{
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(2, 100px);
+    gap: 8px;
+}
+#item-mark{
+    border: 3px solid white;
+    background-color: black;
+    color: white;
+}
 #container {
     display: grid;
     position: relative;
@@ -8,7 +24,8 @@
 }
 #item {
     background-color: aquamarine;
-    border: 5px solid;
+    border: 5px solid darkblue;
+    cursor: pointer;
 }
 #item:hover {
     background-color: red;
