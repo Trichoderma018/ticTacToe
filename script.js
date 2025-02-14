@@ -12,21 +12,24 @@ let reset = document.getElementById("reinicio")
 cuadriculas = [item0, item1, item2, item3, item4, item5, item6, item7, item8]
 //let jugadorActual = "X"
 const turnos = ["X","O"]
-let matriz = [[0,1,2],[3,4,5],[6,7,8]]
+let matriz = [["X","X","X"],[3,4,5],[6,7,8]] //poner comillas vacias y hacer el push
 //console.log(matriz[1][1]);
 jugador() //Es la manera en que los usuarios marcan ´x´ o ´O´
+
 reset.addEventListener("click",reiniciar) //Reinicia el juego limpiando el tablero
 
 function jugador() {
-    cuadriculas.forEach((element) => element.addEventListener("click", function(){
-        if (element !== "") {
-            element.innerHTML = turnos[0]
-            maquina();
-            ganador();
-        }
-        
-            
-    }))
+    for (let index = 0; index < cuadriculas.length; index++) {
+        cuadriculas[index].addEventListener("click", function () {
+            if (cuadriculas[index] !== "") {
+                cuadriculas[index].innerHTML = turnos[0]
+                console.log(index);
+                
+                maquina();
+                ganador();
+            }
+        })
+    }
 }
 function maquina() {
     const filtro = cuadriculas.filter((item) => item.textContent === "") //Se filtran las cuadriculas vacias
@@ -44,25 +47,13 @@ function ganador() {
     for (let i = 0; i < matriz.length; i++) {
         let filaCompleta = true;
         let columnaCompleta = true;
-
-        for (let j = 0; j < matriz.length; j++) {
-            //console.log(matriz[index][j])
-            if ((matriz[i][j]) !== turnos) {
-                filaCompleta = false;
-            }
-            if ((matriz[j][i]) !== turnos) {
-                    columnaCompleta = false;
-                }
-            if (filaCompleta || columnaCompleta) {
-                return true;
-            }
-        }
-        if (turnos[0] == "X") {
-            console.log("¡Gana el usuario!");
-        } else if (turnos[1] == "O") {
-            console.log("¡Gana la máquina!");
-        } else {
-            console.log("Es un empate");
+        console.log(matriz[i][0]);
+        
+        if (matriz[i][0].textContent !== "" && matriz[i][0].textContent === matriz[i][1].textContent && matriz[i][0].textContent === matriz[i][2].textContent) {
+            alert(`Jugador ${matriz[i][0].textContent} Gana`); 
+            return true; 
         }
     }
+
+    //HACER UNA VARIABLE QUE OBTENGA EL CONTENIDO DE LA POSICION QUE GANO
 }
