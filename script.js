@@ -21,7 +21,8 @@ function jugador() {
     cuadriculas.forEach((element) => element.addEventListener("click", function(){
         if (element !== "") {
             element.innerHTML = turnos[0]
-            maquina()
+            maquina();
+            ganador();
         }
         
             
@@ -41,22 +42,27 @@ function reiniciar () {
 }
 function ganador() {
     for (let i = 0; i < matriz.length; i++) {
-        
+        let filaCompleta = true;
+        let columnaCompleta = true;
+
         for (let j = 0; j < matriz.length; j++) {
             //console.log(matriz[index][j])
-            if ((matriz[i][j]) !== "" && matriz[0][i] === matriz[1][i] && matriz[1][i] === matriz[2][i]) {
-                alert(`has ganado`)
-            } else {
-                if (condition) {
-                    
-                } else {
-                    if (condition) {
-                        
-                    }
-                }
+            if ((matriz[i][j]) !== turnos) {
+                filaCompleta = false;
             }
-            
+            if ((matriz[j][i]) !== turnos) {
+                    columnaCompleta = false;
+                }
+            if (filaCompleta || columnaCompleta) {
+                return true;
+            }
+        }
+        if (turnos[0] == "X") {
+            console.log("¡Gana el usuario!");
+        } else if (turnos[1] == "O") {
+            console.log("¡Gana la máquina!");
+        } else {
+            console.log("Es un empate");
         }
     }
-    
 }
