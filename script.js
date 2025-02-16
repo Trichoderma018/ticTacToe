@@ -12,17 +12,30 @@ let reset = document.getElementById("reinicio")
 cuadriculas = [item0, item1, item2, item3, item4, item5, item6, item7, item8]
 //let jugadorActual = "X"
 const turnos = ["X","O"]
-let matriz = [["X","X","X"],[3,4,5],[6,7,8]] //poner comillas vacias y hacer el push
+//let matriz = ["","","","","","","","",""] //poner comillas vacias y hacer el push
+let matriz = [["","",""],["","",""],["","",""]] //poner comillas vacias y hacer el push
 //console.log(matriz[1][1]);
 jugador() //Es la manera en que los usuarios marcan ´x´ o ´O´
 
 reset.addEventListener("click",reiniciar) //Reinicia el juego limpiando el tablero
+/*
+function jugador() {
+    cuadriculas.forEach((element, index) => element.addEventListener("click", function(){
+        if (matriz[index] === "") {
+            matriz[index] = turnos[0];
+            element.textContent = turnos[0];
+            maquina();
+            ganador();
+        }    
+    }))
+}*/
 
 function jugador() {
     for (let index = 0; index < cuadriculas.length; index++) {
         cuadriculas[index].addEventListener("click", function () {
-            if (cuadriculas[index] !== "") {
-                cuadriculas[index].innerHTML = turnos[0]
+            if (matriz.flat()[index] === "") {  //Convierte la matriz en una lista temporal
+                matriz[Math.floor(index / 3)][index % 3] = turnos[0] //actualiza la matriz
+                cuadriculas[index].textContent = turnos[0] // Actuliza la interfaz
                 console.log(index);
                 
                 maquina();
@@ -31,12 +44,13 @@ function jugador() {
         })
     }
 }
+
 function maquina() {
     const filtro = cuadriculas.filter((item) => item.textContent === "") //Se filtran las cuadriculas vacias
     const aleatorio = Math.floor(Math.random() * filtro.length) //se realiza un numero aleatorio segun la cantiadad de cuadriculas vacias
     setTimeout(() => {
         filtro[aleatorio].innerHTML = turnos[1] //Despues 
-    }, 1500);
+    }, 500);
 }
 function reiniciar () {
     cuadriculas.forEach((element) => {
@@ -44,9 +58,50 @@ function reiniciar () {
     })
 }
 function ganador() {
+    for (let i = 0; i < 3; i++) {  
+        let filaGana = true;
+        let columnaGana = true;
+        
+        for (let j = 1; j < 3; j++) {  
+            // Verificar fila
+            if (matriz[i][j] !== matriz[i][0] || matriz[i][0] === "") {
+                filaGana = false;
+            }
+
+            // Verificar columna
+            if (matriz[j][i] !== matriz[0][i] || matriz[0][i] === "") {
+                columnaGana = false;
+            }
+        }
+
+        if (filaGana) {
+            alert(`Jugador ${matriz[i][0]} Gana (Fila ${i})`);
+            return true;
+        }
+
+        if (columnaGana) {
+            alert(`Jugador ${matriz[0][i]} Gana (Columna ${i})`);
+            return true;
+        }
+    }
+
+    // Revisar diagonales
+    if (matriz[0][0] !== "" && matriz[0][0] === matriz[1][1] && matriz[0][0] === matriz[2][2]) {
+        alert(`Jugador ${matriz[0][0]} Gana (Diagonal principal)`);
+        return true;
+    }
+    if (matriz[0][2] !== "" && matriz[0][2] === matriz[1][1] && matriz[0][2] === matriz[2][0]) {
+        alert(`Jugador ${matriz[0][2]} Gana (Diagonal secundaria)`);
+        return true;
+    }
+
+    return false; // Si nadie ha ganado
+}
+
+
+/*
+function ganador() {
     for (let i = 0; i < matriz.length; i++) {
-        let filaCompleta = true;
-        let columnaCompleta = true;
         console.log(matriz[i][0]);
         
         if (matriz[i][0].textContent !== "" && matriz[i][0].textContent === matriz[i][1].textContent && matriz[i][0].textContent === matriz[i][2].textContent) {
@@ -56,4 +111,4 @@ function ganador() {
     }
 
     //HACER UNA VARIABLE QUE OBTENGA EL CONTENIDO DE LA POSICION QUE GANO
-}
+}*/
