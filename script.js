@@ -9,6 +9,13 @@ let item7 = document.getElementById("item7")
 let item8 = document.getElementById("item8")
 let reset = document.getElementById("reinicio")
 let mensaje = document.getElementById("mensaje")
+let marcadorUsuario = document.getElementById("marcadorUsuario") 
+let marcadorMaquina = document.getElementById("marcadorMaquina") 
+
+contandoUsuario = JSON.parse(localStorage.getItem("scoreUser")) || [];
+contandoMaquina = JSON.parse(localStorage.getItem("scoreMachine")) || [];
+
+let  = [];
 
 cuadriculas = [item0, item1, item2, item3, item4, item5, item6, item7, item8]
 const turnos = ["X","O"]
@@ -63,10 +70,10 @@ function ganador() {
                 let div = document.createElement("div")
                 let p = document.createElement("p")
                 p.innerHTML = (`Jugador ${matriz[i][0]} Gana`)
+                p.setAttribute("class","textoGanador")
                 div.appendChild(p)
                 mensaje.appendChild(div);
-                console.log(matriz[i][0]);
-                
+                score()
                 return true; // Retorna true si alguien gana
             }
             // Verifica si una columna tiene tres iguales y no está vacía
@@ -74,9 +81,10 @@ function ganador() {
                 let div = document.createElement("div")
                 let p = document.createElement("p")
                 p.innerHTML = (`Jugador ${matriz[0][i]} Gana`);
+                p.setAttribute("class","textoGanador")
                 div.appendChild(p)
-                mensaje.appendChild(div);
-                console.log(matriz[0][i]); 
+                mensaje.appendChild(div); 
+                score()
                 return true;
             }
         }
@@ -86,8 +94,10 @@ function ganador() {
         let div = document.createElement("div")
         let p = document.createElement("p")
         p.innerHTML = (`Jugador ${matriz[0][0]} Gana`);
+        p.setAttribute("class","textoGanador")
         div.appendChild(p)
         mensaje.appendChild(div);
+        score()
         return true;
     }
 
@@ -96,11 +106,25 @@ function ganador() {
         let div = document.createElement("div")
         let p = document.createElement("p")
         p.innerHTML = (`Jugador ${matriz[0][2]} Gana`);
+        p.setAttribute("class","textoGanador")
         div.appendChild(p)
         mensaje.appendChild(div);
+        score()
         return true;
     }
     console.log(matriz);
     return false; // Si nadie gana, retorna false
+    
 }
 
+function score() {
+    if ((matriz[i][0])=== "X" || (matriz[0][i])=== "X" || (matriz[0][0])=== "X" || (matriz[0][2])=== "X") {
+        contandoUsuario.push(+1);
+        localStorage.setItem("scoreUser",JSON.stringify(contandoUsuario));
+        marcadorUsuario.innerHTML=contandoUsuario++;
+    } if ((matriz[i][0])=== "O" || (matriz[0][i])=== "O" || (matriz[0][0])=== "O" || (matriz[0][2])=== "O") {
+        marcadorMaquina.innerHTML=contandoMaquina++;
+    } else {
+        alert("Error en la matrix")
+    }
+}
